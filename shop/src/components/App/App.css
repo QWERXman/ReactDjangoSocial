@@ -1,0 +1,8 @@
+.MainContainer {
+    display: flex;
+    margin-top: 20px;
+}
+
+.ContentArea {
+    flex-grow: 1
+}
