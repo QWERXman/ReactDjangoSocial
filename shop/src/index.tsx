@@ -9,6 +9,8 @@ import createStore from './store'
 
 import 'semantic-ui-css/semantic.min.css'
 
+import { login } from './service/auth'
+login('qwerxman', 'wasdferruM32')
 const store = createStore()
 
 ReactDOM.render(

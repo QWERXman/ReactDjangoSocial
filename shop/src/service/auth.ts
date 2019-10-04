@@ -1,9 +1,9 @@
 import axios from 'axios'
-import { DEFAULT_API_URL } from '../service/constants'
+import { DEFAULT_API_URL } from './constants'
 import Service from './base'
 
 
-export function login(username: string, pass: string, callback: Function) {
+export function login(username: string, pass: string, callback?: Function) {
     if (axios.defaults.headers.Authorization) {
         if (callback) callback(true); 
     }
@@ -29,9 +29,9 @@ export function loggedIn() {
 }
 
 export function getToken(username: string, pass: string, callback: Function) {
-    Service.post('/obtain-auth-token/', {
-        username: 'qwerxman',
-        password: 'wasdferruM32'
+    Service.post('obtain-auth-token/', {
+        username: username,
+        password: pass
     }).then(response => {
         callback({
             authenticated: true,

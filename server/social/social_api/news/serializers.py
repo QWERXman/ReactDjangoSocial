@@ -1,9 +1,17 @@
 from rest_framework import serializers
 
-# from news.models import News
+from .models import New
 
 
-# class UserSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = News
-#         fields = ['id', 'title', 'text', 'image', 'author']
+class NewsListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = New
+        fields = ('id', 'title', 'text', 'image')
+
+
+class NewsDetailSerializer(serializers.ModelSerializer):
+    author = serializers.HiddenField(default=serializers.CurrentUserDefault())
+
+    class Meta:
+        model = New
+        fields = '__all__'

@@ -1,8 +1,27 @@
 .MainContainer {
     display: flex;
-    margin-top: 20px;
+    padding-top: 56px;
 }
 
 .ContentArea {
     flex-grow: 1
+}
+
+.Header {
+    position: absolute;
+    width: 100%;
+    display: flex;
+    font-size: 32px;
+    letter-spacing: 5px;
+    line-height: 25px;
+    padding: 4px 186px;
+    padding-top: 12px;
+    background-color: #a2e77c;
+    margin-left: calc(-100vw + 100%);
+    font-family: 'Lato', 'Helvetica Neue',Arial,Helvetica,sans-serif;
+}
+
+.HeaderIcon {
+    padding-top: 2px;
+    margin-right: 14px!important;
 }

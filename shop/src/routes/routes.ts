@@ -8,25 +8,25 @@ import Messages from "../containers/messages"
 
 export const RoutesItems: RoutesEntitie[] = [{
     id: 0,
-    text: 'profile',
+    text: 'Profile',
     icon: 'address card outline',
     component: Profile,
     path: PROFILE
 }, {
     id: 1,
-    text: 'news',
+    text: 'News',
     icon: 'newspaper outline',
     component: News,
     path: NEWS
 }, {
     id: 2,
-    text: 'friends',
+    text: 'Friends',
     icon: 'address book outline',
     component: Friends,
     path: FRIENDS
 }, {
     id: 3,
-    text: 'messages',
+    text: 'Messages',
     icon: 'envelope outline',
     component: Messages,
     path: MESSAGES
