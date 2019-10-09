@@ -1,10 +1,10 @@
-import { CHANGE_LOGIN, CHANGE_PASSWORD, TRY_LOGIN } from '../constants/actionTypes'
+import { CHANGE_LOGIN, CHANGE_PASSWORD, TRY_LOGIN, LOG_OUT } from '../constants/actionTypes'
 import { BaseActionType } from './base'
 
-export const changeLogin = (login: string): changeLoginActionType => {
+export const changeLogin = (e: React.ChangeEvent<HTMLInputElement>): changeLoginActionType => {
     return {
         type: CHANGE_LOGIN,
-        login
+        login: e.target.value
     }
 }
 
@@ -13,10 +13,10 @@ export interface changeLoginActionType extends BaseActionType {
 }
 
 
-export const changePassword = (password: string): changePasswordActionType => {
+export const changePassword = (e: React.ChangeEvent<HTMLInputElement>): changePasswordActionType => {
     return {
         type: CHANGE_PASSWORD,
-        password
+        password: e.target.value
     }
 }
 
@@ -25,8 +25,14 @@ export interface changePasswordActionType extends BaseActionType {
 }
 
 
-export const tryLogin = (login: string) => {
+export const tryLogin = () => {
     return {
         type: TRY_LOGIN
+    }
+}
+
+export const logout = () => {
+    return {
+        type: LOG_OUT
     }
 }

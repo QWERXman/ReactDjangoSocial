@@ -1,29 +1,34 @@
-import { CHANGE_LOGIN, CHANGE_PASSWORD, TRY_LOGIN } from '../constants/actionTypes'
+import { CHANGE_LOGIN, CHANGE_PASSWORD, TRY_LOGIN, LOG_OUT } from '../constants/actionTypes'
+import { login, logout } from '../service/auth'
 
 const initialState = {
     username: '',
+    password: '',
     is_logged: false
 };
-  
+
 export default (state = initialState, action:any) => {
     switch (action.type) {
-        case CHANGE_LOGIN:
-            console.log(action);            
+        case CHANGE_LOGIN:         
             return {
                 ...state,
-                text: action.text,
+                username: action.login,
             };
-        case CHANGE_PASSWORD:
-            console.log(action);            
+        case CHANGE_PASSWORD:       
             return {
                 ...state,
-                text: action.text,
+                password: action.password,
             };
         case TRY_LOGIN:
-            console.log(action);            
+            login(state.username, state.password)
             return {
                 ...state
             };
+        case LOG_OUT:
+            logout()
+            return {
+                ...state
+            }
         default:
     return state;
 }

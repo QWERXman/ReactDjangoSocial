@@ -5,27 +5,7 @@ import Service from '../../service/base'
 
 import './News.css'
 
-const newsItems = [{
-    id: 0,
-    text: 'Первая новость',
-    image: 'https://avatars.mds.yandex.net/get-pdb/27625/203472834-equus-bass-770-1460572539.88/s1200'
-},{
-    id: 1,
-    text: 'Вторая',
-    image: 'asdasdasd'
-}, {
-    id: 2,
-    text: 'Третья',
-    image: 'asdasdasd'
-},{
-    id: 3,
-    text: 'Вторая',
-    image: 'asdasdasd'
-}, {
-    id: 4,
-    text: 'Третья',
-    image: 'asdasdasd'
-}]
+
 export interface INewsProps {
     items: NewsItem[],
     activeKey: number
@@ -35,6 +15,7 @@ export interface INewsState {
     items: NewsItem[],
     activeKey: number
 }
+
 export class News extends Component<INewsProps, INewsState> {
     constructor(props: INewsProps, state: INewsState) {
         super(props, state);
@@ -42,13 +23,14 @@ export class News extends Component<INewsProps, INewsState> {
             items: [],
             activeKey: 0
         }
-      }
+    }
 
     async componentWillMount() {
         const res = await Service.get('news/');
         const news = this.prepareItems(res.data);
         this.setItems(news);
     }
+
     public render() {
         return (
             <div>

@@ -13,7 +13,7 @@ class UserCreationForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('login', 'password', 'first_name')
+        fields = ('login', 'first_name', 'second_name')
 
     def clean_password2(self):
         password1 = self.cleaned_data.get("password1")
@@ -64,6 +64,7 @@ class UserAdmin(BaseUserAdmin):
     filter_horizontal = ()
 
 
+admin.site.register(Profile)
 admin.site.register(User,  UserAdmin)
 admin.site.unregister(Group)
 admin.site.register(New)

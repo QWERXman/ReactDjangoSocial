@@ -6,6 +6,7 @@ import { Icon } from "semantic-ui-react";
 import { Routes } from '../Routes/Routes';
 import { RoutesEntitie } from '../../entities/Routes';
 import { RoutesItems } from '../../routes/routes'
+import Login from '../../containers/login'
 import history from '../../constants/history'
 
 import './App.css';
@@ -17,21 +18,31 @@ interface IAppProps {
   chengeRoute: Function
 }
 
-class App extends Component<IAppProps> {
+interface IAppState {
+}
+
+class App extends Component<IAppProps, IAppState> {
 
   constructor(props: IAppProps) {
     super(props);
   }
 
   componentWillMount() {
-    console.log(this.props)
+    this.setState({
+      ...this.state
+    })
   }
 
   render() {
     return (
       <div>
-        <div className="Header"><Icon name='handshake outline' className="HeaderIcon" />Friends</div>
+        <div className="HeaderLine"></div>
         <Container>
+          <div className="Header">
+            <Icon name='handshake outline' className="HeaderIcon" />
+            <div className="AppName">Friends</div>
+            <Login />
+            </div>
           <Router history={history}>
             <div className="MainContainer">
               <Routes

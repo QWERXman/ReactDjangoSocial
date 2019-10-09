@@ -22,4 +22,4 @@ class NewsCreateView(generics.CreateAPIView):
 class NewsUpdateView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = NewsDetailSerializer
     queryset = New.objects.all()
-    permission_classes = (IsAuthenticated, IsAdminUser, IsOwnerOrReadOnly )
+    permission_classes = (IsAuthenticated, IsAdminUser, IsOwnerOrReadOnly)

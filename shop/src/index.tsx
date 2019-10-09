@@ -3,14 +3,22 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './containers/app';
 import * as serviceWorker from './serviceWorker';
-import {Provider} from 'react-redux'
+import { Provider} from 'react-redux'
+import Axios from 'axios'
 
 import createStore from './store'
 
 import 'semantic-ui-css/semantic.min.css'
 
 import { login } from './service/auth'
-login('qwerxman', 'wasdferruM32')
+
+if (window.localStorage.uathToken) {
+    Axios.defaults.headers = {
+        'Authorization': 'Token ' + window.localStorage.uathToken,
+        'Content-Type': 'application/json'
+    }
+}
+
 const store = createStore()
 
 ReactDOM.render(

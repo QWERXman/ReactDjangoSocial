@@ -3,25 +3,23 @@ import { DEFAULT_API_URL } from './constants'
 import Service from './base'
 
 
-export function login(username: string, pass: string, callback?: Function) {
-    if (axios.defaults.headers.Authorization) {
-        if (callback) callback(true); 
-    }
+export function login(username: string, pass: string) {
     getToken(username, pass, (res: any) => {
+        window.localStorage.uathToken = res.token;
         if (res.authenticated) {
             axios.defaults.headers = {
                 'Authorization': 'Token ' + res.token,
                 'Content-Type': 'application/json'
             }
-            if (callback) callback(true);
-        } else {
-            if (callback) callback(false);
+            window.location.reload()
         }
     })
 }    
-    
+
 export function logout() {
+    delete window.localStorage.uathToken;
     delete axios.defaults.headers.Authorization;
+    window.location.reload()
 }
 
 export function loggedIn() {
