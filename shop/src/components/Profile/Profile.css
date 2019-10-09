@@ -1,0 +1,9 @@
+.Profile {
+    display: flex;
+}
+
+.Profile-Data__UserName {
+    font-size: 26px;
+    margin-left: 12px;
+    margin-top: -4px;
+}
