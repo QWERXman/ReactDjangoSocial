@@ -1,0 +1,7 @@
+.EditProfile__BirthdayField .react-date-picker__inputGroup {
+    height: 16px;
+}
+
+.EditProfile__BirthdayField .react-date-picker {
+    height: 39px;
+}

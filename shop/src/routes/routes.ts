@@ -1,10 +1,10 @@
 import { RoutesEntitie } from "../entities/Routes"
 import { PROFILE, NEWS, FRIENDS, MESSAGES } from '../constants/routes'
 
-import News from "../containers/news"
-import Profile from "../containers/profile"
-import Friends from "../containers/friends"
-import Messages from "../containers/messages"
+import News from "../components/News/News"
+import Profile from "../components/Profile/Profile"
+import Friends from "../components/Friends/Friends"
+import Messages from "../components/Messages/Messages"
 
 export const RoutesItems: RoutesEntitie[] = [{
     id: 0,

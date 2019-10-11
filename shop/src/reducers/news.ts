@@ -15,6 +15,6 @@ export default (state = initialState, action:any) => {
                 items: action.record,
             };
         default:
-    return state;
-}
+            return state;
+    }
 };

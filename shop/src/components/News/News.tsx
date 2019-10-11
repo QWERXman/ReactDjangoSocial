@@ -1,22 +1,26 @@
 import React, { Component } from "react";
-import { NewsItem } from "../../entities/News";
+import { NewsEntitie } from "../../entities/News";
 import { Card, Image, Icon } from "semantic-ui-react";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import * as newsActions from '../../actions/news';
 import Service from '../../service/base'
 
 import './News.css'
 
 
 export interface INewsProps {
-    items: NewsItem[],
+    items: NewsEntitie[],
     activeKey: number
 }
 
 export interface INewsState {
-    items: NewsItem[],
+    items: NewsEntitie[],
     activeKey: number
 }
 
-export class News extends Component<INewsProps, INewsState> {
+class News extends Component<INewsProps, INewsState> {
     constructor(props: INewsProps, state: INewsState) {
         super(props, state);
         this.state = {
@@ -27,7 +31,7 @@ export class News extends Component<INewsProps, INewsState> {
 
     async componentWillMount() {
         const res = await Service.get('news/');
-        const news = this.prepareItems(res.data);
+        const news = this.prepareItems(res);
         this.setItems(news);
     }
 
@@ -36,7 +40,8 @@ export class News extends Component<INewsProps, INewsState> {
             <div>
                 <Card.Group  itemsPerRow={2}>
                     {this.state.items && this.state.items.map( item => (
-                            <Card key={item.id} onClick={() => this.selectMenuItem(item.id)}>
+                        // key={item.id} onClick={() => this.selectMenuItem(item.id)}
+                            <Card >
                                 <Image src={item.image} wrapped ui={false} />
                                 <Card.Content>
                                     <Card.Header>{item.text}</Card.Header>
@@ -73,7 +78,7 @@ export class News extends Component<INewsProps, INewsState> {
     }
 
     prepareItems(items: any[]) {
-        let endItems: NewsItem[] = items && items.map(item => {
+        let endItems: NewsEntitie[] = items && items.map(item => {
             return {
                 id: item.id,
                 text: item.text,
@@ -84,3 +89,16 @@ export class News extends Component<INewsProps, INewsState> {
         return endItems
     }
 }
+
+const mapStateToProps = ({ items }: any) => ({
+    news: items
+});
+
+const mapDispatchToProps = (dispatch: any) => ({
+  ...bindActionCreators(newsActions, dispatch),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(News);

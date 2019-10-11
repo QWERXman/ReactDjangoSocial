@@ -1,9 +1,27 @@
 import React, { Component } from "react";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as friendsActions from '../../actions/friends';
 
-export class Friends extends Component {
+
+class Friends extends Component {
     public render() {
         return (
             <div>qwe</div>
         );
     }
 }
+
+
+const mapStateToProps = ({ items }: any) => ({
+    items: []
+});
+
+const mapDispatchToProps = (dispatch: any) => ({
+  ...bindActionCreators(friendsActions, dispatch),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Friends);

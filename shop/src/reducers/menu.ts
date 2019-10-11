@@ -13,6 +13,6 @@ export default (state = initialState, action:any) => {
                 id: action,
             };
         default:
-    return state;
-}
+            return state;
+    }
 };

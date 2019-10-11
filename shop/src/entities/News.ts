@@ -1,5 +1,6 @@
-export interface NewsItem {
-    id: number,
-    text: string,
-    image: boolean
+export interface NewsEntitie {
+    id?: number,
+    text?: string,
+    title?: string,
+    image?: string
 }

@@ -19,9 +19,9 @@ class CurrentUser(APIView):
 
         profile_fields = [a.attname for a in Profile._meta.fields]
         for field in request.data:
-            if field in profile_fields:
+            if field in profile_fields and request.data.get(field):
                 upd_profile.__setattr__(field, request.data.get(field))
 
-            upd_profile.save()
+        upd_profile.save()
 
-        return Response(ProfileSerializer(upd_profile, many=True))
+        return Response(ProfileSerializer(Profile.objects.get(user_id=request.user.pk)).data)

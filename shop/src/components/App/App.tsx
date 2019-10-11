@@ -2,11 +2,15 @@ import React, { Component } from 'react';
 import { Container } from 'semantic-ui-react';
 import { Route, Switch, Router } from "react-router-dom";
 import { Icon } from "semantic-ui-react";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-import { Routes } from '../Routes/Routes';
+import * as newsActions from '../../actions/news';
+import * as routesActions from '../../actions/routes';
+import Routes from '../../components/Routes/Routes';
 import { RoutesEntitie } from '../../entities/Routes';
 import { RoutesItems } from '../../routes/routes'
-import Login from '../../containers/login'
+import Login from '../../components/Login/Login'
 import history from '../../constants/history'
 
 import './App.css';
@@ -67,4 +71,17 @@ class App extends Component<IAppProps, IAppState> {
   }
 }
 
-export default App
+
+const mapStateToProps = () => ({
+    items: RoutesItems
+});
+
+const mapDispatchToProps = (dispatch: any) => ({
+    ...bindActionCreators(newsActions, dispatch),
+    ...bindActionCreators(routesActions, dispatch),
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(App);

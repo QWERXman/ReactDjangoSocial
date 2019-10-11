@@ -4,7 +4,6 @@
 
 .Profile__Data {
     margin-left: 12px;
-    width: 200px;
     flex-grow: 1;
 }
 
@@ -40,4 +39,12 @@
 
 .Profile-Data-UserData-Data__Item, .Profile-Data-UserData-Fields__Item {
     margin-top: 2px;
+}
+
+.Profile__Posts {
+    margin-left: 12px;
+}
+
+.Profile-Posts__ProfileNewsList {
+    margin-top: 12px!important;
 }

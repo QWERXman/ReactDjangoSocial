@@ -1,6 +1,10 @@
 import React, { Component } from "react";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as messagesActions from '../../actions/messages';
 
-export class Messages extends Component {
+
+class Messages extends Component {
     public render() {
         return (
             <div>
@@ -9,3 +13,17 @@ export class Messages extends Component {
         );
     }
 }
+
+
+const mapStateToProps = () => ({
+    items: []
+});
+
+const mapDispatchToProps = (dispatch: any) => ({
+  ...bindActionCreators(messagesActions, dispatch),
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(Messages);

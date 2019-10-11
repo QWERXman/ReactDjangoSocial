@@ -1,70 +1,93 @@
 import React, { Component } from "react";
 import { Image, Button } from "semantic-ui-react";
-import Service from '../../service/base'
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import * as editProfileActions from './EditProfile/actions';
+import * as profileNewsListActions from './ProfileNewsList/actions';
+import * as profileActions from './actions';
+
+import { Profile as ProfileService } from '../../service/profile'
+import EditProfile from './EditProfile/EditProfile'
+import CreateNews from './CreateNews/CreateNews'
+import ProfileNewsList from './ProfileNewsList/ProfileNewsList'
 
 import './Profile.css'
+import { ProfileEntitie } from "../../entities/Profile";
+import { NewsService } from "service/news";
+import { NewsEntitie } from "entities/News";
 
-interface IProfileState {
-    name: string | null,
-    second_name: string | null,
-    avatar: string | null,
-    status: string | null,
-    birthday: string | null,
-    city: string | null,
 
+interface IProfileProps extends ProfileEntitie {
+    editProfileData: Function,
+    setMyNewsList: Function,
+    newsList: NewsEntitie[]
 }
 
-export class Profile extends Component<{}, IProfileState> {
-    
-    constructor(props: {}, state: IProfileState) {
+export class Profile extends Component<IProfileProps, {}> {
+
+    constructor(props: IProfileProps, state: {}) {
         super(props, state);
-        this.state = {
-            name: null,
-            second_name: null,
-            avatar: null,
-            status: null,
-            birthday: null,
-            city: null,
-        }
     }
 
-    async componentWillMount() {
-        const user = await Service.get('profiles/current_user/');
-        this.setState({
-            ...this.state,
-            ...user.data[0]
-        })
+    async componentDidMount() {
+        ProfileService.getCurrent().then(data => data ? this.props.editProfileData(data) : null)
+        NewsService.getMyNews().then(data => this.props.setMyNewsList(data))
     }
 
     public render() {
         return (
             <div className="Profile">
-                <Image src={this.state.avatar} width="200" height="200" wrapped ui={false} />
-                <div className="Profile__Data">
-                    <div className="Flexbox">
-                        <div className="Profile-Data__UserName">{this.state.name} {this.state.second_name}</div>
-                        <div className="Profile-Data__EditBtn">
-                            <Button size="mini">Edit</Button>
+                <Image src={this.props.avatar} width="200" height="200" wrapped ui={false} />
+                <div className="FlexGrow-1">
+                    <div className="Profile__Data">
+                        <div className="Flexbox">
+                            <div className="Profile-Data__UserName">{this.props.name} {this.props.secondName}</div>
+                            <div className="Profile-Data__EditBtn">
+                                <EditProfile 
+                                    editProfileData={this.props.editProfileData} 
+                                    name={this.props.name} 
+                                    secondName={this.props.secondName}/>
+                            </div>
+                        </div>
+                        
+                        <div className="Profile-Data__Separator"></div>
+
+                        <div className="Profile-Data__UserData">
+                            <div className="Profile-Data-UserData__Fields">
+                                <span className="Profile-Data-UserData-Fields__Item">Status:</span>
+                                <span className="Profile-Data-UserData-Fields__Item">Birthday </span>
+                                <span className="Profile-Data-UserData-Fields__Item">Sity:</span>
+                            </div>
+                            <div className="Profile-Data-UserData__Data">
+                                <div className="Profile-Data-UserData-Data__Item">{this.props.status}</div>
+                                <div className="Profile-Data-UserData-Data__Item">{this.props.birthday}</div>
+                                <div className="Profile-Data-UserData-Data__Item">{this.props.city}</div>
+                            </div>  
                         </div>
                     </div>
                     
-                    <div className="Profile-Data__Separator"></div>
-
-                    <div className="Profile-Data__UserData">
-                        <div className="Profile-Data-UserData__Fields">
-                            <span className="Profile-Data-UserData-Fields__Item">Status:</span>
-                            <span className="Profile-Data-UserData-Fields__Item">Birthday </span>
-                            <span className="Profile-Data-UserData-Fields__Item">Sity:</span>
-                        </div>
-                        <div className="Profile-Data-UserData__Data">
-                            <div className="Profile-Data-UserData-Data__Item">{this.state.status}</div>
-                            <div className="Profile-Data-UserData-Data__Item">{this.state.birthday}</div>
-                            <div className="Profile-Data-UserData-Data__Item">{this.state.city}</div>
-                        </div>  
+                    <div className="Profile__Posts">
+                        <CreateNews />
+                        <ProfileNewsList className="Profile-Posts__ProfileNewsList"
+                            newsList={this.props.newsList}/>
                     </div>
-                                      
                 </div>
+                
             </div>
         );
     }
 }
+
+
+const mapStateToProps = (state: any) => state.profile
+const mapDispatchToProps = (dispatch: any) => ({
+  ...bindActionCreators(profileNewsListActions, dispatch),
+  ...bindActionCreators(editProfileActions, dispatch),
+  ...bindActionCreators(profileActions, dispatch),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Profile);

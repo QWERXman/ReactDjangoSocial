@@ -30,6 +30,6 @@ export default (state = initialState, action:any) => {
                 ...state
             }
         default:
-    return state;
-}
+            return state;
+    }
 };

@@ -10,3 +10,7 @@ export const CHANGE_PASSWORD = 'CHANGE_PASSWORD'
 export const TRY_LOGIN = 'TRY_LOGIN'
 export const LOG_OUT = 'LOG_OUT'
 
+export const EDIT_PROFILE_DATA = 'EDIT_PROFILE_DATA'
+
+export const CREATE_NEWS = 'CREATE_NEWS'
+

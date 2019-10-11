@@ -1,14 +1,17 @@
 import React, { Component } from 'react'
+import { Popup, Form, Button } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import * as loginActions from '../../actions/login';
 import Service from '../../service/base'
 import { loggedIn } from '../../service/auth'
-import { Popup, Form, Checkbox, Button } from 'semantic-ui-react';
 
 import './Login.css';
 
 interface ILoginState {
   username: string,
   is_logged: boolean,
-  
 }
 
 interface ILoginProps {
@@ -42,14 +45,14 @@ class Login extends Component<ILoginProps, ILoginState> {
     const res = await Service.get('profiles/current_user/');
     this.setState({
       ...this.state,
-      username: res.data[0] ? res.data[0].name + ' ' + res.data[0].second_name : 'Sing in'
+      username: res[0] ? res[0].name + ' ' + res[0].second_name : 'Sing in'
     })
   } 
   
   render() {
     return (
         <div className="Login">
-          <Popup trigger={<div>{this.state.username}</div>} flowing hoverable>
+          <Popup trigger={<div>{this.state.username}</div>} flowing on='click'>
             {this.state.is_logged
               ? <SingOut
                   logout={this.props.logout}/>
@@ -63,7 +66,7 @@ class Login extends Component<ILoginProps, ILoginState> {
   }
 }
 
-const SingIn = (props: ISinginProps, state: any) => (
+const SingIn = (props: ISinginProps, state: {}) => (
   <div>
     <Form>
       <Form.Field>
@@ -85,4 +88,16 @@ const SingOut = (props: ISingOutProps, state: any) => (
   </div>
 )
 
-export default Login
+const mapStateToProps = () => ({
+  username: '',
+  is_logged: false
+});
+
+const mapDispatchToProps = (dispatch: any) => ({
+  ...bindActionCreators(loginActions, dispatch),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Login);

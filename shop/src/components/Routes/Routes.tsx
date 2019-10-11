@@ -1,5 +1,9 @@
-import React, { Component } from "react";
-import { Link, withRouter } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import * as routesActions from '../../actions/routes';
 import { RoutesEntitie } from "../../entities/Routes";
 import { List, Icon } from "semantic-ui-react";
 
@@ -10,11 +14,11 @@ interface IRoutesProps {
     chengeRoute: Function
 }
 
-export const Routes = ({ items, chengeRoute }: IRoutesProps) => (
+const Routes = (props: IRoutesProps) => (
     <div>
         <List selection verticalAlign='middle' className="RoutesList">
-            {items.map((item: RoutesEntitie) => (
-                <List.Item key={item.id} onClick={() => chengeRoute(item.id)}>
+            {props.items.map((item: RoutesEntitie) => (
+                <List.Item key={item.id} onClick={() => props.chengeRoute(item.id)}>
                     <Link to={item.path} className="RouteItem">
                         <Icon name={item.icon}/>
                         <List.Content>
@@ -27,3 +31,16 @@ export const Routes = ({ items, chengeRoute }: IRoutesProps) => (
     </div>
 )
 
+
+const mapStateToProps = (state: any) => {
+    return {...state.items}
+}
+
+const mapDispatchToProps = (dispatch: any) => ({
+  ...bindActionCreators(routesActions, dispatch),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Routes);
