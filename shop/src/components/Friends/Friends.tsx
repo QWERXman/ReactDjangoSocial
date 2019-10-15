@@ -48,7 +48,7 @@ class Friends extends Component<any,any> {
         return
       }  
       console.log(e.target.value)
-
+      console.log('Izmeenil')
     }
 }
 
