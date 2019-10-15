@@ -7,7 +7,7 @@ import * as friendsActions from '../../actions/friends';
 class Friends extends Component {
     public render() {
         return (
-            <div>qwe</div>
+            <div>asdasdas</div>
         );
     }
 }
