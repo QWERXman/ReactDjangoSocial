@@ -6,10 +6,11 @@ from .models import New
 
 class NewsListSerializer(serializers.ModelSerializer):
     author = serializers.StringRelatedField()
+    createDate = serializers.CharField(source='create_date', read_only=True)
 
     class Meta:
         model = New
-        fields = ('id', 'title', 'text', 'image', 'author')
+        fields = ('id', 'title', 'text', 'image', 'author', 'createDate')
 
 
 class NewsDetailSerializer(serializers.ModelSerializer):

@@ -7,5 +7,6 @@ export const NewsService = {
     }),
     getMyNews: () => Service.get('news/', {OnlyMy: true}).then(res => {
         return res
-    })
+    }),
+    getAllNews: () => Service.get('news/')
 }

@@ -4,9 +4,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import * as createNewsActions from './actions';
-import { NewsService } from '../../../service/news'
-import { NewsEntitie } from '../../../entities/News'
-
+import { NewsEntitie } from '../../../entities/News';
+import { toDate, formatUserDate } from 'helpers/date'
 import './ProfileNewsList.css'
 
 
@@ -32,17 +31,13 @@ class ProfileNewsList extends Component<IProfileNewsListProps, IProfileNewsListS
                             <Card key={item.id}>
                                 <Image src={item.image} wrapped ui={false} />
                                 <Card.Content>
-                                    <Card.Header>{item.text}</Card.Header>
-                                    <Card.Meta>
-                                        <span className='date'>Joined in 2015</span>
-                                    </Card.Meta>
+                                    <Card.Header>{item.title}</Card.Header>
                                     <Card.Description>
-                                        Matthew is a musician living in Nashville.
+                                        {item.text}
                                     </Card.Description>
                                 </Card.Content>
                                 <Card.Content extra>
-                                        <Icon name='user' />
-                                        22 Friends
+                                        {formatUserDate(toDate(item.createDate, '-'))}
                                 </Card.Content>
                             </Card>
                     ))}

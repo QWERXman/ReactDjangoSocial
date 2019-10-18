@@ -4,14 +4,17 @@ import { Card, Image, Icon } from "semantic-ui-react";
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import * as newsActions from '../../actions/news';
-import Service from '../../service/base'
+import * as newsActions from './actions';
+import { formatUserDate, toDate } from "helpers/date";
 
-import './News.css'
+import './News.css';
+import { NewsService } from "service/news";
 
 
 export interface INewsProps {
     items: NewsEntitie[],
+    newsList: NewsEntitie[],
+    getAllNews: Function,
     activeKey: number
 }
 
@@ -30,31 +33,24 @@ class News extends Component<INewsProps, INewsState> {
     }
 
     async componentWillMount() {
-        const res = await Service.get('news/');
-        const news = this.prepareItems(res);
-        this.setItems(news);
+        NewsService.getAllNews().then(data => data ? this.props.getAllNews(data) : null)
     }
 
     public render() {
         return (
             <div>
                 <Card.Group  itemsPerRow={2}>
-                    {this.state.items && this.state.items.map( item => (
-                        // key={item.id} onClick={() => this.selectMenuItem(item.id)}
-                            <Card >
+                    {this.props.newsList && this.props.newsList.map(item => (
+                            <Card key={item.id}>
                                 <Image src={item.image} wrapped ui={false} />
                                 <Card.Content>
-                                    <Card.Header>{item.text}</Card.Header>
-                                    <Card.Meta>
-                                        <span className='date'>Joined in 2015</span>
-                                    </Card.Meta>
+                                    <Card.Header>{item.title}</Card.Header>
                                     <Card.Description>
-                                        Matthew is a musician living in Nashville.
+                                        {item.text}.
                                     </Card.Description>
                                 </Card.Content>
                                 <Card.Content extra>
-                                        <Icon name='user' />
-                                        22 Friends
+                                    {formatUserDate(toDate(item.createDate, '-'))}  
                                 </Card.Content>
                             </Card>
                     ))}
@@ -63,37 +59,16 @@ class News extends Component<INewsProps, INewsState> {
         );
     }
 
-    setItems(items: any[]) {
-        this.setState({
-            ...this.state,
-            items: items
-        })
-    }
-
     selectMenuItem(id: number): void {      
         this.setState({
             ...this.state,
             activeKey: id
         })        
     }
-
-    prepareItems(items: any[]) {
-        let endItems: NewsEntitie[] = items && items.map(item => {
-            return {
-                id: item.id,
-                text: item.text,
-                image: item.image
-            }
-        })
-
-        return endItems
-    }
 }
 
-const mapStateToProps = ({ items }: any) => ({
-    news: items
-});
 
+const mapStateToProps = (state: any) => state.news
 const mapDispatchToProps = (dispatch: any) => ({
   ...bindActionCreators(newsActions, dispatch),
 });

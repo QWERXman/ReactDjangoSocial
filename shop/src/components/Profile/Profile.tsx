@@ -11,11 +11,12 @@ import { Profile as ProfileService } from '../../service/profile'
 import EditProfile from './EditProfile/EditProfile'
 import CreateNews from './CreateNews/CreateNews'
 import ProfileNewsList from './ProfileNewsList/ProfileNewsList'
-
-import './Profile.css'
+import { formatUserDate, toDate } from 'helpers/date'
 import { ProfileEntitie } from "../../entities/Profile";
 import { NewsService } from "service/news";
 import { NewsEntitie } from "entities/News";
+
+import './Profile.css'
 
 
 interface IProfileProps extends ProfileEntitie {
@@ -61,7 +62,7 @@ export class Profile extends Component<IProfileProps, {}> {
                             </div>
                             <div className="Profile-Data-UserData__Data">
                                 <div className="Profile-Data-UserData-Data__Item">{this.props.status}</div>
-                                <div className="Profile-Data-UserData-Data__Item">{this.props.birthday}</div>
+                                <div className="Profile-Data-UserData-Data__Item">{formatUserDate(toDate(this.props.birthday, '-'))}</div>
                                 <div className="Profile-Data-UserData-Data__Item">{this.props.city}</div>
                             </div>  
                         </div>

@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 
-import news from './news';
 import menu from './menu';
-import login from './login';
+import login from '../components/Login/reducers';
 import profile from '../components/Profile/redusers';
+import news from '../components/News/reducers';
 
 export default combineReducers({
     news,

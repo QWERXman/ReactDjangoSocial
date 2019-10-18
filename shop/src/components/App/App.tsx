@@ -14,6 +14,7 @@ import Login from '../../components/Login/Login'
 import history from '../../constants/history'
 
 import './App.css';
+import { tryLogin, logout } from 'components/Login/actions';
 
 interface IAppProps {
   items: RoutesEntitie[],
@@ -45,7 +46,7 @@ class App extends Component<IAppProps, IAppState> {
           <div className="Header">
             <Icon name='handshake outline' className="HeaderIcon" />
             <div className="AppName">Friends</div>
-            <Login />
+            <Login tryLogin={tryLogin} logout={logout}/>
             </div>
           <Router history={history}>
             <div className="MainContainer">

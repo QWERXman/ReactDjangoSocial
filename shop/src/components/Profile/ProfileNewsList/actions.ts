@@ -3,7 +3,7 @@ import { CREATE_NEWS } from './actionTypes'
 import { NewsEntitie } from 'entities/News'
 
 
-export const setMyNewsList = (data: NewsEntitie): ProfileEntitieActionType => {
+export const createNews = (data: NewsEntitie): ProfileEntitieActionType => {
     return {
         type: CREATE_NEWS,
         title: data.title, 
