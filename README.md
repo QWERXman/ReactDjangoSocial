@@ -1,1 +1,1 @@
-# ReactShop
+# ReactDjangoSocial
